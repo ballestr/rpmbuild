@@ -10,6 +10,10 @@ inputs:
   additional_repos:
     description: 'A list of additional repositories to enable'
     required: false
+  dockerfile:
+    description: 'Choose a different dockerfile'
+    required: false
+    default: 'Dockerfile'
 
 outputs:
   source_rpm_path:
@@ -25,7 +29,7 @@ outputs:
 
 runs:
   using: 'docker'
-  image: 'Dockerfile'
+  image: '${{inputs.dockerfile}}'
 
 branding:
   icon: 'package'
