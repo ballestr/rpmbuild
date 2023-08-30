@@ -29,7 +29,8 @@ outputs:
 
 runs:
   using: 'docker'
-  image: '${{inputs.dockerfile}}'
+  #image: '${{ inputs.dockerfile }}'
+  image: 'Dockerfile.alma9'
 
 branding:
   icon: 'package'
