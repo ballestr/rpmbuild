@@ -8,10 +8,13 @@ inputs:
     required: true
     default: '*.spec'                     #Any spec file in top 
   additional_repos:
-    description: 'A list of additional repositories to enable'
+    description: 'A list of repositories to install using yum install'
+    required: false
+  enable_repos:
+    description: 'A list of repositories to enable using yum config-manager --set-enabled'
     required: false
   dockerfile:
-    description: 'Choose a different dockerfile'
+    description: 'Choose a different dockerfile [DOES NOT WORK]'
     required: false
     default: 'Dockerfile'
 

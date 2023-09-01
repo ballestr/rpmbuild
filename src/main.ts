@@ -58,15 +58,25 @@ async function run() {
 
     // Installs additional repositories
     const additionalRepos = core.getInput('additional_repos'); // user input, eg: '["centos-release-scl"]'
-	if (additionalRepos) {
-		const arr = JSON.parse(additionalRepos);
-		for (let i = 0; i < arr.length; i++) {
-			console.log(`Installing repo': ${arr[i]}`);
-    		await exec.exec(`yum install -y ${arr[i]}`);
-		};
-	}
+    if (additionalRepos) {
+        const arr = JSON.parse(additionalRepos);
+        for (let i = 0; i < arr.length; i++) {
+            console.log(`Installing repo': ${arr[i]}`);
+            await exec.exec(`yum install -y ${arr[i]}`);
+        };
+    }
 
-	// Installs build dependencies
+    // Enables additional repositories
+    const enableRepos = core.getInput('enable_repos'); // user input, eg: '["centos-release-scl"]'
+    if (enableRepos) {
+        const arr = JSON.parse(enableRepos);
+        for (let i = 0; i < arr.length; i++) {
+            console.log(`Enabling repo': ${arr[i]}`);
+            await exec.exec(`yum config-manager --set-enabled ${arr[i]}`);
+        };
+    }
+
+    // Installs build dependencies
     await exec.exec(`yum-builddep -y ${specFile.destFullPath}`);
 
     // Execute rpmbuild , -ba generates both RPMS and SPRMS
