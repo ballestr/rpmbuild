@@ -61,7 +61,7 @@ async function run() {
     if (additionalRepos) {
         const arr = JSON.parse(additionalRepos);
         for (let i = 0; i < arr.length; i++) {
-            console.log(`Installing repo': ${arr[i]}`);
+            console.log(`Installing repo: ${arr[i]}`);
             await exec.exec(`yum install -y ${arr[i]}`);
         };
     }
@@ -71,10 +71,12 @@ async function run() {
     if (enableRepos) {
         const arr = JSON.parse(enableRepos);
         for (let i = 0; i < arr.length; i++) {
-            console.log(`Enabling repo': ${arr[i]}`);
+            console.log(`Enabling repo: ${arr[i]}`);
             await exec.exec(`yum config-manager --set-enabled ${arr[i]}`);
         };
     }
+    console.log(`Repository status:`);
+    await exec.exec(`yum repolist all`);
 
     // Installs build dependencies
     await exec.exec(`yum-builddep -y ${specFile.destFullPath}`);
